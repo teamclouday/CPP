@@ -1,0 +1,15 @@
+cmake_minimum_required(VERSION 3.14)
+
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+project(CPP)
+
+file(GLOB SRC_FILES "${CMAKE_SOURCE_DIR}/*.cpp" "${CMAKE_SOURCE_DIR}/*.hpp")
+add_executable(run ${SRC_FILES})
+
+set_target_properties(run
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin
+    RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/bin
+    RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin
+)
