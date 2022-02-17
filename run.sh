@@ -13,4 +13,7 @@ cmake .. -DCMAKE_CXX_FLAGS=-std=c++$1
 fi
 make
 cd ..
+echo "==========="
+echo " Executing"
+echo "==========="
 ./bin/run
