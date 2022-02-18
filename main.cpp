@@ -7,7 +7,6 @@
 #include <vector>
 #include <list>
 #include <algorithm>
-#include <execution>
 #include <mutex>
 #include <unordered_map>
 #include <thread>
@@ -129,7 +128,7 @@ int main()
         numbers[i] = roll();
     
     println("Vector:\n", numbers);
-    std::sort(std::execution::par, numbers.begin(), numbers.end());
+    std::sort(numbers.begin(), numbers.end());
     println("Sorted:\n", numbers);
     println("Sum: ", std::accumulate(numbers.begin(), numbers.end(), 0));
     auto vec = &numbers[0];
