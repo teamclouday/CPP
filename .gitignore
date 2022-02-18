@@ -1,5 +1,3 @@
 bin/*
 build/*
 .vscode/*
-*.cpp
-*.hpp
