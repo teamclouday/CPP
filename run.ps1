@@ -11,4 +11,4 @@ Set-Location ..
 Write-Host "==========="
 Write-Host " Executing"
 Write-Host "==========="
-Start-Process -NoNewWindow -Wait -FilePath ".\bin\run.exe"
+& ".\bin\run.exe"
