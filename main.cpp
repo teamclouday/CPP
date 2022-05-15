@@ -116,34 +116,16 @@ std::optional<fs::path> get_dir_first(const fs::path& p)
 
 int main()
 {
-    std::ios_base::sync_with_stdio(false);
+    /* std::ios_base::sync_with_stdio(false); */
 
-    std::default_random_engine re;
-    std::uniform_int_distribution dist{0, 1000};
-    auto roll = [&](){return dist(re);};
+    std::string b("testb");
+    println(b);
 
-    std::vector<int> numbers(10);
-    auto sz = numbers.size();
-    for(size_t i = 0; i < numbers.size(); i++)
-        numbers[i] = roll();
-    
-    println("Vector:\n", numbers);
-    std::sort(numbers.begin(), numbers.end());
-    println("Sorted:\n", numbers);
-    println("Sum: ", std::accumulate(numbers.begin(), numbers.end(), 0));
-    auto vec = &numbers[0];
-    auto f1 = std::async(std::accumulate<int*, int>, vec, vec + sz/4, 0);
-    auto f2 = std::async(std::accumulate<int*, int>, vec + sz/4, vec + sz/2, 0);
-    auto f3 = std::async(std::accumulate<int*, int>, vec + sz/2, vec + sz*3/4, 0);
-    auto f4 = std::async(std::accumulate<int*, int>, vec + sz*3/4, vec + sz, 0);
-    println("Async Sum: ", f1.get() + f2.get() + f3.get() + f4.get());
+    std::string a{"test"};
+    println(a);
 
-    println("Current Path: ", fs::absolute(fs::path(".")));
-    println("Current Folder:");
-    printdir(fs::path("."));
-    auto file = get_dir_first(fs::path(".") / fs::path("bin"));
-    if(file.has_value())
-        println("Size of excutable (KB): ", fs::file_size(file.value()) / 1024);
+    std::vector<int> c{1,2,3,4,5,6,7};
+    println(c);
 
     return 0;
 }
