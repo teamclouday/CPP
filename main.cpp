@@ -7,7 +7,6 @@
 #include <vector>
 #include <list>
 #include <algorithm>
-#include <execution>
 #include <mutex>
 #include <unordered_map>
 #include <thread>
@@ -149,8 +148,6 @@ std::optional<fs::path> get_dir_first(const fs::path& p)
 //     return 0;
 // }
 
-// std::mutex m1, m2;
-
 std::mutex mu;
 int val = 0;
 
@@ -185,6 +182,5 @@ int main()
     t2.join();
 
     std::cout << '\n';
-
     return 0;
 }

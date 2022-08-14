@@ -1,4 +1,4 @@
-param ($cppversion="14")
+param ($cppversion="20")
 $BuildPath = "build"
 if (-not (Test-Path -Path $BuildPath))
 {

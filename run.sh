@@ -6,8 +6,8 @@ fi
 cd build
 if [ $# -eq 0 ]
 then
-# default use c++11
-cmake .. -DCMAKE_CXX_FLAGS=-std=c++11
+# default use c++20
+cmake .. -DCMAKE_CXX_FLAGS=-std=c++20
 else
 cmake .. -DCMAKE_CXX_FLAGS=-std=c++$1
 fi
