@@ -115,36 +115,76 @@ std::optional<fs::path> get_dir_first(const fs::path& p)
 }
 
 
+// int main()
+// {
+//     std::ios_base::sync_with_stdio(false);
+
+//     std::default_random_engine re;
+//     std::uniform_int_distribution dist{0, 1000};
+//     auto roll = [&](){return dist(re);};
+
+//     std::vector<int> numbers(10);
+//     auto sz = numbers.size();
+//     for(size_t i = 0; i < numbers.size(); i++)
+//         numbers[i] = roll();
+    
+//     println("Vector:\n", numbers);
+//     std::sort(std::execution::par, numbers.begin(), numbers.end());
+//     println("Sorted:\n", numbers);
+//     println("Sum: ", std::accumulate(numbers.begin(), numbers.end(), 0));
+//     auto vec = &numbers[0];
+//     auto f1 = std::async(std::accumulate<int*, int>, vec, vec + sz/4, 0);
+//     auto f2 = std::async(std::accumulate<int*, int>, vec + sz/4, vec + sz/2, 0);
+//     auto f3 = std::async(std::accumulate<int*, int>, vec + sz/2, vec + sz*3/4, 0);
+//     auto f4 = std::async(std::accumulate<int*, int>, vec + sz*3/4, vec + sz, 0);
+//     println("Async Sum: ", f1.get() + f2.get() + f3.get() + f4.get());
+
+//     println("Current Path: ", fs::absolute(fs::path(".")));
+//     println("Current Folder:");
+//     printdir(fs::path("."));
+//     auto file = get_dir_first(fs::path(".") / fs::path("bin"));
+//     if(file.has_value())
+//         println("Size of excutable (KB): ", fs::file_size(file.value()) / 1024);
+
+//     return 0;
+// }
+
+// std::mutex m1, m2;
+
+std::mutex mu;
+int val = 0;
+
+void funEven()
+{
+    while(val <= 100)
+    {
+        mu.lock();
+        if(val % 2 == 0)
+            std::cout << val++ << ",";
+        mu.unlock();
+    }
+}
+
+void funOdd()
+{
+    while(val <= 100)
+    {
+        mu.lock();
+        if(val % 2)
+            std::cout << val++ << ",";
+        mu.unlock();
+    }
+}
+
 int main()
 {
-    std::ios_base::sync_with_stdio(false);
-
-    std::default_random_engine re;
-    std::uniform_int_distribution dist{0, 1000};
-    auto roll = [&](){return dist(re);};
-
-    std::vector<int> numbers(10);
-    auto sz = numbers.size();
-    for(size_t i = 0; i < numbers.size(); i++)
-        numbers[i] = roll();
+    std::thread t2(funEven);
+    std::thread t1(funOdd);
     
-    println("Vector:\n", numbers);
-    std::sort(std::execution::par, numbers.begin(), numbers.end());
-    println("Sorted:\n", numbers);
-    println("Sum: ", std::accumulate(numbers.begin(), numbers.end(), 0));
-    auto vec = &numbers[0];
-    auto f1 = std::async(std::accumulate<int*, int>, vec, vec + sz/4, 0);
-    auto f2 = std::async(std::accumulate<int*, int>, vec + sz/4, vec + sz/2, 0);
-    auto f3 = std::async(std::accumulate<int*, int>, vec + sz/2, vec + sz*3/4, 0);
-    auto f4 = std::async(std::accumulate<int*, int>, vec + sz*3/4, vec + sz, 0);
-    println("Async Sum: ", f1.get() + f2.get() + f3.get() + f4.get());
+    t1.join();
+    t2.join();
 
-    println("Current Path: ", fs::absolute(fs::path(".")));
-    println("Current Folder:");
-    printdir(fs::path("."));
-    auto file = get_dir_first(fs::path(".") / fs::path("bin"));
-    if(file.has_value())
-        println("Size of excutable (KB): ", fs::file_size(file.value()) / 1024);
+    std::cout << '\n';
 
     return 0;
 }
